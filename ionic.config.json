@@ -1,0 +1,7 @@
+{
+  "name": "FiscusApp-client",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
