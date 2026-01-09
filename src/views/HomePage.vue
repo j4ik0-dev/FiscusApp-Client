@@ -1,28 +1,57 @@
 <template>
-  <ion-page>
-    <ion-header :translucent="true">
-      <ion-toolbar>
-        <ion-title>Blank</ion-title>
-      </ion-toolbar>
-    </ion-header>
+  <IonPage>
+    <IonHeader :translucent="true">
+      <IonToolbar>
+        <IonTitle>FiscusApp</IonTitle>
+      </IonToolbar>
+    </IonHeader>
 
-    <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Blank</ion-title>
-        </ion-toolbar>
-      </ion-header>
+    <IonContent :fullscreen="true" class="ion-padding">
+      
+      <IonHeader collapse="condense">
+        <IonToolbar>
+          <IonTitle size="large">Mis Gastos</IonTitle>
+        </IonToolbar>
+      </IonHeader>
 
-      <div id="container">
-        <strong>Ready to create an app?</strong>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+      <IonList :inset="true">
+        <IonItem v-for="expense in expenses" :key="expense.id">
+          <IonLabel>
+            <h2>{{ expense.title }}</h2>
+            <p>{{ expense.frequency }} · {{ expense.type }}</p>
+          </IonLabel>
+          
+          <IonNote slot="end" color="success" style="font-weight: bold; font-size: 1.1em;">
+            ${{ expense.amount }}
+          </IonNote>
+        </IonItem>
+      </IonList>
+
+      <div v-if="expenses.length === 0" style="text-align: center; margin-top: 50px; color: gray;">
+        <p>No hay gastos registrados aún.</p>
       </div>
-    </ion-content>
-  </ion-page>
+
+    </IonContent>
+  </IonPage>
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { ref, onMounted } from 'vue';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonBadge,IonNote } from '@ionic/vue';
+import ExpenseService from '@/services/ExpenseService';
+
+// 1. Variable reactiva para guardar la lista de gastos
+const expenses = ref<any[]>([]);
+
+onMounted(async () => {
+  try {
+    const response = await ExpenseService.getExpenses();
+    // 2. Asignamos los datos que vienen de Laravel a nuestra variable
+    expenses.value = response.data;
+  } catch (error) {
+    console.error("Error cargando gastos:", error);
+  }
+});
 </script>
 
 <style scoped>
