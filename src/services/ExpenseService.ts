@@ -21,5 +21,9 @@ export default {
     // El ID puede ser número o texto
     deleteExpense(id: number | string) {
         return apiClient.delete(`/expenses/${id}`);
+    },
+    updateExpense(id: number, expenseData: any) {
+    return apiClient.put(`/expenses/${id}`, expenseData);
     }
+    
 };
