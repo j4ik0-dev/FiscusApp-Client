@@ -64,7 +64,6 @@ const form = ref({
     amount: '',
     type: undefined,
     frequency: undefined,
-    user_id: 1,
     payment_date: today
 });
 

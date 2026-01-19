@@ -1,7 +1,7 @@
 <template>
     <IonPage>
         <IonContent class="ion-padding ion-text-center">
-            <h1 style="margin-top: 100px; margin-bottom: 50px;">FiscusApp 💸</h1>
+            <h1 style="margin-top: 100px; margin-bottom: 50px;">FiscusApp</h1>
             <IonItem>
                 <IonInput v-model="form.email" label="Correo" label-placement="floating" type="email"></IonInput>
             </IonItem>
