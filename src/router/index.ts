@@ -4,6 +4,7 @@ import HomePage from '../views/HomePage.vue';
 import LoginPage from '../views/LoginPage.vue';
 import RegisterPage from '../views/RegisterPage.vue';
 import AuthService from '@/services/AuthService';
+import PerfilPage from '@/views/PerfilPage.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -18,6 +19,14 @@ const routes: Array<RouteRecordRaw> = [
     path: '/register',
     component: RegisterPage
   },
+  {
+  path: '/perfil',
+  component: PerfilPage,
+  beforeEnter: (to, from, next) => {
+      if (AuthService.isLoggedIn()) next();
+      else next('/login');
+  }
+},
   {
     path: '/home',
     component: HomePage,
